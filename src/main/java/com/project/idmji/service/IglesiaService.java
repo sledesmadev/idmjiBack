@@ -11,8 +11,9 @@ public class IglesiaService {
 
 	   @Transactional
 	    public IglesiaDTO save(IglesiaDTO iglesiaDTO) {
-	        Iglesia iglesia = IglesiaRepository.save(mapToSubreddit(subredditDto));
-	        iglesiaDTO.setId(iglesia.getId());
-	        return subredditDto;
+//	        Iglesia iglesia = IglesiaRepository.save(mapToSubreddit(subredditDto));
+		   IglesiaDTO iglesia = null;
+//	        iglesiaDTO.setId(iglesia.getId());
+	        return iglesia;
 	    }
 }

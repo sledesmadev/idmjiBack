@@ -49,7 +49,7 @@ public class AuthService {
     public void signup(RegisterRequest registerRequest) {
         Usuario user = new Usuario();
         user.setUsername(registerRequest.getUsername());
-        user.setEmail(registerRequest.getEmail());
+//        user.setEmail(registerRequest.getEmail());
         user.setPassword(encodePassword(registerRequest.getPassword()));
 //        user.setCreated(now());
         user.setEnabled(false);
@@ -61,7 +61,7 @@ public class AuthService {
         String message = mainContentBuilder.build("Thank you for signing up to Spring Reddit, please click on the below url to activate your account : "
                 + ACTIVATION_EMAIL + "/" + token);
         
-        mailService.sendMail(new NotificationEmail("Please Activate your account", user.getEmail(), message));
+        mailService.sendMail(new NotificationEmail("Please Activate your account", user.getUsername(), message));
     }
     
     private String generateVerificationToken(Usuario user) {
@@ -86,7 +86,7 @@ public class AuthService {
     @Transactional
     private void fetchUserAndEnable(VerificationToken verificationToken) {
         String username = verificationToken.getUser().getUsername();
-        Usuario user = userRepository.findByUsername(username).orElseThrow(() -> new IdmjiException("User Not Found with id - " + username));
+        Usuario user = userRepository.findByEmail(username).orElseThrow(() -> new IdmjiException("User Not Found with id - " + username));
         user.setEnabled(true);
         userRepository.save(user);
     }
@@ -119,7 +119,7 @@ public class AuthService {
     Usuario getCurrentUser() {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.
                 getContext().getAuthentication().getPrincipal();
-        return userRepository.findByUsername(principal.getUsername())
+        return userRepository.findByEmail(principal.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + principal.getUsername()));
     }
     

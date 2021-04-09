@@ -7,5 +7,5 @@ import com.project.idmji.model.Usuario;
 
 public interface UserRepository extends JpaRepository<Usuario, Long>{
 
-	Optional<Usuario> findByUsername(String username);
+	Optional<Usuario> findByEmail(String username);
 }

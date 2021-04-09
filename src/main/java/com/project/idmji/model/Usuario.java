@@ -26,16 +26,17 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
-	@NotBlank(message = "Nombre is required")
+//	@NotBlank(message = "Nombre is required")
 	private String nombre;
 	private String apellidos;
 	private Instant fechaNac; 
-    @NotBlank(message = "Username is required")
+	@NotEmpty(message = "Email is required")
+//    @NotBlank(message = "Username is required")
     private String username;
-    @NotBlank(message = "Password is required")
+//    @NotBlank(message = "Password is required")
     private String password;
     @Email
-    @NotEmpty(message = "Email is required")
+//    @NotEmpty(message = "Email is required")
     private String email;
     @ManyToOne(fetch = LAZY)
     private PaisResidencia paisResidencia;
